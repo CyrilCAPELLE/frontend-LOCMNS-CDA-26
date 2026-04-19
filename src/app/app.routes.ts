@@ -1,0 +1,16 @@
+import { Routes } from '@angular/router';
+import { Accueil } from './pages/accueil/accueil';
+import { Page404 } from './pages/page404/page404';
+import { Connexion } from './pages/connexion/connexion';
+import { DetailComposant } from './pages/detail-composant/detail-composant';
+import { ModifierComposant } from './pages/modifier-composant/modifier-composant';
+
+export const routes: Routes = [
+    {path: 'accueil', component: Accueil },
+    {path: 'connexion', component: Connexion },
+    {path: 'composant/creer', component: ModifierComposant },
+    {path: 'composant/:id', component: DetailComposant },
+    {path: 'composant/maj/:id', component: ModifierComposant },
+    {path: '', redirectTo: '/accueil', pathMatch: 'full' },
+    {path: '**', component: Page404 },
+];

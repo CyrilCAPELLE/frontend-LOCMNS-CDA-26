@@ -1,5 +1,22 @@
 <h1>Liste du materiel</h1>
 
-@for (materiel of materiels(); track materiel.id) {
-    <div>{{ materiel.nomMateriel }} {{ materiel.numeroDeSerie }} {{ materiel.familleMateriel?.libelleFamilleMateriel }} {{ materiel.etat?.libelleEtat }}</div>
-}
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Non du matériel</th>
+      <th scope="col">Numéro de série</th>
+      <th scope="col">Famille</th>
+      <th scope="col">Etat</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (materiel of materiels(); track materiel.id) {
+        <tr>
+            <td>{{ materiel.nomMateriel }}</td>
+            <td>{{ materiel.numeroDeSerie }}</td>
+            <td>{{ materiel.familleMateriel?.libelleFamilleMateriel }}</td>
+            <td>{{ materiel.etat?.libelleEtat }}</td>
+        </tr>
+    }
+  </tbody>
+</table>

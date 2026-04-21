@@ -1,1 +1,5 @@
-<p>accueil works!</p>
+<h1>Liste du materiel</h1>
+
+@for (materiel of materiels(); track materiel.id) {
+    <div>{{ materiel.nomMateriel }} {{ materiel.numeroDeSerie }} {{ materiel.familleMateriel?.libelleFamilleMateriel }} {{ materiel.etat?.libelleEtat }}</div>
+}

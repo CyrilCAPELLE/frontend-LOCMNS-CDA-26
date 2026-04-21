@@ -1,5 +1,6 @@
 type Materiel = {
   id: number;
+  nomMateriel: string;
   numeroDeSerie: string;
   dateAchat: string;
   familleMateriel?: FamilleMateriel;

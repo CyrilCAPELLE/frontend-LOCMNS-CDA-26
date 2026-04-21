@@ -8,16 +8,17 @@ import { Component, inject, signal } from '@angular/core';
   styleUrl: './accueil.scss',
 })
 export class Accueil {
-  composants = signal<Composant[]>([]);
+  materiels = signal<Materiel[]>([]);
 
   httpClient = inject(HttpClient);
 
   ngOnInit() {
     this.httpClient
-      .get<Composant[]>('http://localhost:8080/composant/liste')
-      .subscribe((listeComposants) => {
-        this.composants.set(listeComposants);
+      .get<Materiel[]>('http://localhost:8080/materiel/liste')
+      .subscribe((listeMateriel) => {
+        this.materiels.set(listeMateriel);
       });
+      
     console.log('fin');
   }
 }

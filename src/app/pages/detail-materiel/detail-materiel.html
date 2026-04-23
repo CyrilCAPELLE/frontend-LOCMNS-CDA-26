@@ -1,0 +1,11 @@
+<h1>Detail matériel</h1>
+
+@if (materiel()) {
+    <h2>{{ materiel()!.nomMateriel }}</h2>
+    <p>{{ materiel()!.numeroDeSerie }}</p>
+    <p>{{ materiel()!.familleMateriel?.libelleFamilleMateriel }}</p>
+    <p>{{ materiel()!.etat?.libelleEtat }}</p>
+    <p>{{ materiel()!.emplacement?.libelleEmplacement }}</p>
+} @else {
+    <p>Chargement...</p>
+}

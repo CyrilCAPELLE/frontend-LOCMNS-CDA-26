@@ -12,7 +12,7 @@
   <tbody>
     @for (materiel of materiels(); track materiel.id) {
         <tr>
-            <td>{{ materiel.nomMateriel }}</td>
+            <td><a [routerLink]="'/materiel/' + materiel.id">{{ materiel.nomMateriel }}</a></td>
             <td>{{ materiel.numeroDeSerie }}</td>
             <td>{{ materiel.familleMateriel?.libelleFamilleMateriel }}</td>
             <td>{{ materiel.etat?.libelleEtat }}</td>

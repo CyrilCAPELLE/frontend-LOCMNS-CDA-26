@@ -1,7 +1,7 @@
 <h1>Liste des personnes</h1>
 
 @for (personne of personnes(); track personne.id) {
-    <h2>{{ personne.prenom }} {{ personne.nom }}</h2>
+    <h2><a [routerLink]="'/personne/' + personne.id">{{ personne.prenom }} {{ personne.nom }}</a></h2>
     <p>{{ personne.email }}</p>
     <p>{{ personne.actif }}</p>
 }

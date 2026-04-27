@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-liste-personnes',

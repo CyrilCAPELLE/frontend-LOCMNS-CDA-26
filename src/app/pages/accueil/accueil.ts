@@ -10,7 +10,6 @@ import { RouterLink } from "@angular/router";
 })
 export class Accueil {
   materiels = signal<Materiel[]>([]);
-
   httpClient = inject(HttpClient);
 
   ngOnInit() {

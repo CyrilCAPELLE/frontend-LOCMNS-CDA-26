@@ -1,0 +1,12 @@
+<h1>Détail personne</h1>
+
+@if (personne()) {
+    <h2>{{ personne()!.prenom }} {{ personne()!.nom }}</h2>
+    @for (profile of personne()!.profiles; track profile.id) {
+        <p>{{ profile.libelleProfile }}</p>
+    }
+    <p>{{ personne()!.email }}</p>
+    <p>{{ personne()!.actif }}</p>
+} @else {
+    <p>Chargement...</p>
+}

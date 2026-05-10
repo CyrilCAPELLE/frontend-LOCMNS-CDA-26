@@ -7,16 +7,21 @@ import { ModifierComposant } from './pages/modifier-composant/modifier-composant
 import { DetailMateriel } from './pages/detail-materiel/detail-materiel';
 import { ListePersonnes } from './pages/liste-personnes/liste-personnes';
 import { DetailPersonne } from './pages/detail-personne/detail-personne';
+import { MainLayout } from './layout/main-layout/main-layout';
 
 export const routes: Routes = [
-    {path: 'accueil', component: Accueil },
     {path: 'connexion', component: Connexion },
-    {path: 'composant/creer', component: ModifierComposant },
-    {path: 'composant/:id', component: DetailComposant },
-    {path: 'materiel/:id', component: DetailMateriel },
-    {path: 'personne/liste', component: ListePersonnes },
-    {path: 'personne/:id', component: DetailPersonne },
-    {path: 'composant/maj/:id', component: ModifierComposant },
+    {path: '', component: MainLayout,
+        children: [
+            {path: 'accueil', component: Accueil },    
+            {path: 'composant/creer', component: ModifierComposant },
+            {path: 'composant/:id', component: DetailComposant },
+            {path: 'materiel/:id', component: DetailMateriel },
+            {path: 'personne/liste', component: ListePersonnes },
+            {path: 'personne/:id', component: DetailPersonne },
+            {path: 'composant/maj/:id', component: ModifierComposant },    
+        ]
+    },
     {path: '', redirectTo: '/accueil', pathMatch: 'full' },
     {path: '**', component: Page404 },
 ];

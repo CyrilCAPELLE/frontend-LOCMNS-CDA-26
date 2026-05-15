@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { PersonneService } from '../../services/personne';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
@@ -10,11 +10,10 @@ import { RouterLink } from "@angular/router";
 })
 export class ListeUtilisateurs {
   personnes = signal<Personne[]>([])
-  httpClient = inject(HttpClient)
+  personneService = inject(PersonneService)
   
   ngOnInit() {
-    this.httpClient
-    .get<Personne[]>('http://localhost:8080/personne/liste')
+    this.personneService.getAll()
       .subscribe((listePersonne) => {
         this.personnes.set(listePersonne);
       });

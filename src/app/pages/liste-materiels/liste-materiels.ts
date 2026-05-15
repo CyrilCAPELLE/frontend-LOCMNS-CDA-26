@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { MaterielService } from '../../services/materiel';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
@@ -10,15 +10,12 @@ import { RouterLink } from "@angular/router";
 })
 export class ListeMateriels {
   materiels = signal<Materiel[]>([]);
-  httpClient = inject(HttpClient);
+  materielService = inject(MaterielService);
 
   ngOnInit() {
-    this.httpClient
-      .get<Materiel[]>('http://localhost:8080/materiel/liste')
+    this.materielService.getAll()
       .subscribe((listeMateriel) => {
         this.materiels.set(listeMateriel);
       });
-      
-    console.log('fin');
   }
 }

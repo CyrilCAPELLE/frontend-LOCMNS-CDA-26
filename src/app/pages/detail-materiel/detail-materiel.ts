@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { MaterielService } from '../../services/materiel';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,12 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailMateriel {
   route = inject(ActivatedRoute)
-  httpClient = inject(HttpClient)
+  materielService = inject(MaterielService)
   materiel = signal<Materiel | null>(null)
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.httpClient.get<Materiel>('http://localhost:8080/materiel/' + params['id'])
+      this.materielService.getById(+params['id'])
       .subscribe((materiel) => {
         this.materiel.set(materiel);
       });

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { PersonneService } from '../../services/personne';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,12 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailPersonne {
   route = inject(ActivatedRoute)
-  httpClient = inject(HttpClient)
+  personneService = inject(PersonneService)
   personne = signal<Personne | null>(null)
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.httpClient.get<Personne>('http://localhost:8080/personne/' + params['id'])
+      this.personneService.getById(+params['id'])
       .subscribe((personne) => {
         this.personne.set(personne);
       });

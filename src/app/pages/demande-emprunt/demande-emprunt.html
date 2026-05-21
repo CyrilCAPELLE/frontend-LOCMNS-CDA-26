@@ -9,41 +9,47 @@
 <div style="display:grid;grid-template-columns:2fr 1fr;gap:24px" class="form-layout">
 
   <!-- Formulaire -->
-  <div class="card">
+  <form [formGroup]="formulaire" (ngSubmit)="onSubmit()" class="card">
 
     <div class="form-group">
       <label class="form-label">Famille de matériel</label>
       <div class="form-hint">Filtré selon votre profil (relation Accéder)</div>
-      <select class="form-select">
-        <option value="">-- Sélectionnez --</option>
-      </select>
+      <select class="form-select" formControlName="famille">
+  <option value="">-- Sélectionnez --</option>
+  <option value="1">PC portable</option>
+  <option value="2">Écran</option>
+  <option value="3">Vidéoprojecteur</option>
+</select>
     </div>
 
     <div class="form-group">
       <label class="form-label">Matériel souhaité</label>
-      <select class="form-select">
-        <option value="">-- Sélectionnez d'abord une famille --</option>
-      </select>
+      <select class="form-select" formControlName="materiel">
+  <option value="">-- Sélectionnez --</option>
+  <option value="10">Dell Latitude 5540</option>
+  <option value="11">MacBook Air M2</option>
+</select>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Date de début</label>
-        <input type="date" class="form-input">
+        <input type="date" class="form-input" formControlName="dateDebut">
       </div>
       <div class="form-group">
         <label class="form-label">Date de retour prévue</label>
-        <input type="date" class="form-input">
+        <input type="date" class="form-input" formControlName="dateRetour">
       </div>
     </div>
 
     <div class="form-group">
       <label class="form-label">Motif / commentaire</label>
-      <textarea class="form-textarea" placeholder="Précisez l'usage prévu..."></textarea>
+      <textarea class="form-textarea" placeholder="Précisez l'usage prévu..." formControlName="motif"></textarea>
     </div>
-
-    <button class="btn btn-primary" style="width:100%">Soumettre la demande</button>
-  </div>
+    <button type="submit" class="btn btn-primary" style="width:100%" [disabled]="formulaire.invalid">
+  Soumettre la demande
+    </button>
+  </form>
 
   <!-- Mes demandes (à droite) -->
   <div>

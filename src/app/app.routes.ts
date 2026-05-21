@@ -14,6 +14,7 @@ import { Planning } from './pages/planning/planning';
 import { ListeUtilisateurs } from './pages/liste-utilisateurs/liste-utilisateurs';
 import { ListeDocuments } from './pages/liste-documents/liste-documents';
 import { ListeAlertes } from './pages/liste-alertes/liste-alertes';
+import { DemandeEmprunt } from './pages/demande-emprunt/demande-emprunt';
 
 export const routes: Routes = [
     {path: 'connexion', component: Connexion },
@@ -33,6 +34,7 @@ export const routes: Routes = [
             {path: 'utilisateurs', component: ListeUtilisateurs},
             {path: 'documents', component: ListeDocuments},
             {path: 'alertes', component: ListeAlertes},
+            {path: 'emprunt/demande', component: DemandeEmprunt},
         ]
     },
     {path: '**', component: Page404 },

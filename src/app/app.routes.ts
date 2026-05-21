@@ -34,7 +34,7 @@ export const routes: Routes = [
             {path: 'utilisateurs', component: ListeUtilisateurs},
             {path: 'documents', component: ListeDocuments},
             {path: 'alertes', component: ListeAlertes},
-            {path: 'emprunt/demande', component: DemandeEmprunt},
+            {path: 'emprunts/demande', component: DemandeEmprunt},
         ]
     },
     {path: '**', component: Page404 },

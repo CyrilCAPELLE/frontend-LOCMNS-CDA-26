@@ -3,12 +3,12 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-liste-personnes',
+  selector: 'app-liste-utilisateurs',
   imports: [RouterLink],
-  templateUrl: './liste-personnes.html',
-  styleUrl: './liste-personnes.scss',
+  templateUrl: './liste-utilisateurs.html',
+  styleUrl: './liste-utilisateurs.scss',
 })
-export class ListePersonnes {
+export class ListeUtilisateurs {
   personnes = signal<Personne[]>([])
   personneService = inject(PersonneService)
   

@@ -23,6 +23,9 @@ export class DemandeEmprunt {
   onSubmit() {
     if (this.formulaire.valid) {
       console.log(this.formulaire.value);
+      alert("Demande envoyée")
+
+      this.formulaire.reset();
     }
   }
 }

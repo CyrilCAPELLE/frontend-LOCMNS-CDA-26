@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { EmpruntService } from '../../services/emprunt';
 
 @Component({
   selector: 'app-liste-emprunts',
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './liste-emprunts.html',
   styleUrl: './liste-emprunts.scss',
 })
-export class ListeEmprunts {}
+export class ListeEmprunts {
+  emprunts = signal<Emprunt[]>([]);
+  empruntService = inject(EmpruntService);
+
+  ngOnInit() {
+    this.empruntService.getAll().subscribe((ListeEmprunts) => {
+      this.emprunts.set(ListeEmprunts);
+    });
+  }
+
+}

@@ -15,10 +15,11 @@ import { ListeUtilisateurs } from './pages/liste-utilisateurs/liste-utilisateurs
 import { ListeDocuments } from './pages/liste-documents/liste-documents';
 import { ListeAlertes } from './pages/liste-alertes/liste-alertes';
 import { DemandeEmprunt } from './pages/demande-emprunt/demande-emprunt';
+import { connecteGuard } from './guard/connecte-guard';
 
 export const routes: Routes = [
     {path: 'connexion', component: Connexion },
-    {path: '', component: MainLayout,
+    {path: '', component: MainLayout, canActivate: [connecteGuard],
         children: [ 
             {path: '', redirectTo: '/dashboard', pathMatch: 'full' },
             {path: 'composant/creer', component: ModifierComposant },

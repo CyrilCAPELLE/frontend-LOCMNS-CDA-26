@@ -65,6 +65,10 @@
       <label class="form-label">Motif / commentaire</label>
       <textarea class="form-textarea" placeholder="Précisez l'usage prévu..." formControlName="motif"></textarea>
     </div>
+    @if (message(); as msg) {
+      <div [class]="msg.type === 'succes' ? 'alert-succes' : 'alert-erreur'">
+        {{ msg.texte }}
+      </div>}
     <button type="submit" class="btn btn-primary" style="width:100%" [disabled]="formulaire.invalid">
   Soumettre la demande
     </button>

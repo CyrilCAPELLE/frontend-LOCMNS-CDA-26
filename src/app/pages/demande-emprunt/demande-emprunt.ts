@@ -21,6 +21,8 @@ export class DemandeEmprunt {
   empruntService = inject(EmpruntService);
   router = inject(Router);
 
+  message = signal<{ texte: string; type: 'succes' | 'erreur' } | null>(null);
+
   formulaire = this.formBuilder.group({
     famille: ['', [Validators.required]],
     materiel: ['', [Validators.required]],
@@ -49,8 +51,8 @@ export class DemandeEmprunt {
       dateDebut: valeurs.dateDebut!,
       dateRetourPrevue: valeurs.dateRetour!,
     }).subscribe({
-      next: () => this.router.navigateByUrl('/emprunts'),
-      error: () => alert("La demande n'a pas pu être envoyée"),
+      next: () => this.message.set({ texte: 'Demande envoyée avec succès', type: 'succes' }),
+      error: (error) => this.message.set({ texte: error.error.erreur, type: 'erreur' }),
     });
   }
 }
@@ -61,7 +63,6 @@ export class DemandeEmprunt {
     return this.materiels().filter((materiel) => String(materiel.familleMateriel?.id) === String(familleId)
     );
   }
-
 }
 
 function dateRetourValide(group: AbstractControl): ValidationErrors | null {

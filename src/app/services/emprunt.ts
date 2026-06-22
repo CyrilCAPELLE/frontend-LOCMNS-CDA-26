@@ -12,4 +12,20 @@ export class EmpruntService {
   getAll(): Observable<Emprunt[]> {
     return this.httpClient.get<Emprunt[]>(this.apiUrl + '/liste');
   }
+
+  creerDemande(demande: { materiel: { id: number }; dateDebut: string; dateRetourPrevue: string }): Observable<Emprunt> {
+    return this.httpClient.post<Emprunt>(this.apiUrl + '/demande', demande);
+  }
+
+  valider(id: number): Observable<Emprunt> {
+    return this.httpClient.put<Emprunt>(this.apiUrl + '/' + id + '/valider', {});
+  }
+
+  refuser(id: number): Observable<Emprunt> {
+    return this.httpClient.put<Emprunt>(this.apiUrl + '/' + id + '/refuser', {});
+  }
+
+  getMesDemandes(personneId: number): Observable<Emprunt[]> {
+    return this.httpClient.get<Emprunt[]>(this.apiUrl + '/personne/' + personneId);
+  }
 }

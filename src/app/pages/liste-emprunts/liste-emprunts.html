@@ -15,8 +15,8 @@
       <tr>
         <td>{{ emprunt.materiel?.nomMateriel }}</td>
         <td>{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
-        <td>{{ emprunt.dateDebut }}</td>
-        <td>{{ emprunt.dateRetourPrevue }}</td>
+        <td>{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
+        <td>{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
         <td>{{ emprunt.statutDemande }}</td>
       </tr>
     }

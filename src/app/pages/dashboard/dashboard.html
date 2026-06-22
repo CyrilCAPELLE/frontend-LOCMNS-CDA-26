@@ -6,15 +6,15 @@
         </div>
         <div class="stat-card">
             <div class="stat-label">Emprunts actifs</div>
-            <div class="stat-value">{{ empruntActif() }}</div>
+            <div class="stat-value blue">{{ empruntActif() }}</div>
         </div>
         <div class="stat-card">
             <div class="stat-label">En maintenance</div>
-            <div class="stat-value">{{ enMaintenance() }}</div>
+            <div class="stat-value amber">{{ enMaintenance() }}</div>
         </div>
         <div class="stat-card">
             <div class="stat-label">Disponible</div>
-            <div class="stat-value">{{ disponible() }}</div>
+            <div class="stat-value green">{{ disponible() }}</div>
         </div>
     </div>
 
@@ -28,8 +28,8 @@
                 {{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}
             </div>
             <div>
-                <button (click)="accepter(emprunt.id)">Valider</button>
-                <button (click)="refuser(emprunt.id)">Refuser</button>
+                <button (click)="accepter(emprunt.id)" class="btn btn-primary btn-sm">Valider</button>
+                <button (click)="refuser(emprunt.id)" class="btn btn-ghost btn-sm">Refuser</button>
             </div>
             </div>
         } 

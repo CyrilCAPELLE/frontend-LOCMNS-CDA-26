@@ -21,15 +21,21 @@
         <td>{{ emprunt.statutDemande }}</td>
         <td>
           @if (emprunt.statutDemande === 'VALIDEE') {
-            <input #dateRetour type="date" [value]="dateDuJour">
-            <select #nouvelEtat>
+            <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
+            <select #nouvelEtat class="form-select">
               @for (etat of etats(); track etat.id) {
                 <option [value]="etat.id">{{ etat.libelleEtat }}</option>
               }
             </select>
-            <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)">
-              Enregistrer le retour
-            </button>
+            <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+            @if (message(); as msg) {
+              @if (msg.id === emprunt.id) {
+                <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'"
+                      style="display:block;font-size:11px;margin-top:4px">
+                  {{ msg.texte }}
+                </span>
+              }
+            }
           }
         </td>
       </tr>

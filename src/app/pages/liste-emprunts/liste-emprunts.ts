@@ -18,6 +18,7 @@ export class ListeEmprunts {
   etats = signal<Etat[]>([]);
 
   dateDuJour = new Date().toISOString().slice(0, 10);
+  message = signal<{ id: number; texte: string; type: 'succes' | 'erreur' } | null>(null);
 
   ngOnInit() {
     this.charger();
@@ -38,8 +39,13 @@ export class ListeEmprunts {
   }
 
   retour(id: number, dateRetour: string, nouvelEtatId: string) {
-    this.empruntService.enregistrerRetour(id, dateRetour, Number(nouvelEtatId)).subscribe(() => {
+  this.message.set(null);
+  this.empruntService.enregistrerRetour(id, dateRetour, Number(nouvelEtatId)).subscribe({
+    next: () => {
+      this.message.set({ id, texte: 'Retour enregistré', type: 'succes' });
       this.charger();
-    });
-  }
+    },
+    error: (error) => this.message.set({ id, texte: error.error.erreur, type: 'erreur' }),
+  });
+}
 }

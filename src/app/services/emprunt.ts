@@ -28,4 +28,12 @@ export class EmpruntService {
   getMesDemandes(personneId: number): Observable<Emprunt[]> {
     return this.httpClient.get<Emprunt[]>(this.apiUrl + '/personne/' + personneId);
   }
+
+  enregistrerRetour(id: number, dateRetour: string, nouvelEtatId: number): Observable<Emprunt> {
+  return this.httpClient.put<Emprunt>(
+    this.apiUrl + '/' + id + '/retour',
+    {},
+    { params: { dateRetour, nouvelEtatId } }
+  );
+}
 }

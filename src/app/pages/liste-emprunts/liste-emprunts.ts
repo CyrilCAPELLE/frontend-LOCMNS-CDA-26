@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { EmpruntService } from '../../services/emprunt';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../services/auth';
+import { EtatService } from '../../services/etat';
 
 @Component({
   selector: 'app-liste-emprunts',
@@ -13,21 +14,32 @@ export class ListeEmprunts {
   emprunts = signal<Emprunt[]>([]);
   empruntService = inject(EmpruntService);
   authService = inject(AuthService);
+  etatService = inject(EtatService);
+  etats = signal<Etat[]>([]);
+
+  dateDuJour = new Date().toISOString().slice(0, 10);
 
   ngOnInit() {
+    this.charger();
     if (this.authService.isAdmin()) {
-      this.empruntService.getAll().subscribe((ListeEmprunts) => {
-        this.emprunts.set(ListeEmprunts);
-    });
+      this.etatService.getAll().subscribe((liste) => this.etats.set(liste));
+    }
+  }
+
+  charger() {
+    if (this.authService.isAdmin()) {
+      this.empruntService.getAll().subscribe((liste) => this.emprunts.set(liste));
     } else {
       const id = this.authService.getId();
       if (id !== null) {
-        this.empruntService.getMesDemandes(id).subscribe((liste) => {
-          this.emprunts.set(liste);
-        });
+        this.empruntService.getMesDemandes(id).subscribe((liste) => this.emprunts.set(liste));
       }
     }
-    
   }
 
+  retour(id: number, dateRetour: string, nouvelEtatId: string) {
+    this.empruntService.enregistrerRetour(id, dateRetour, Number(nouvelEtatId)).subscribe(() => {
+      this.charger();
+    });
+  }
 }

@@ -8,6 +8,7 @@
       <th scope="col">Date début</th>
       <th scope="col">Date retour prévue</th>
       <th scope="col">Statut</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,19 @@
         <td>{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
         <td>{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
         <td>{{ emprunt.statutDemande }}</td>
+        <td>
+          @if (emprunt.statutDemande === 'VALIDEE') {
+            <input #dateRetour type="date" [value]="dateDuJour">
+            <select #nouvelEtat>
+              @for (etat of etats(); track etat.id) {
+                <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+              }
+            </select>
+            <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)">
+              Enregistrer le retour
+            </button>
+          }
+        </td>
       </tr>
     }
   </tbody>

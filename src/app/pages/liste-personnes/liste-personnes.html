@@ -1,7 +1,7 @@
 <h1>Liste des personnes</h1>
 
 @for (personne of personnes(); track personne.id) {
-  <div class="card" style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+  <div class="card" style="margin-bottom:10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center;">
     <div>
       <a [routerLink]="'/personne/' + personne.id" style="font-size:14px; font-weight:600;">{{ personne.prenom }} {{ personne.nom }}</a>
       <div style="color:var(--slate-500); font-size:12px; margin-top:2px;">{{ personne.email }}</div>

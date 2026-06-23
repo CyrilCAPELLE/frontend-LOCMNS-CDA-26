@@ -18,7 +18,16 @@
         <td>{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
         <td>{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
         <td>{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
-        <td>{{ emprunt.statutDemande }}</td>
+        <td>
+          <span class="badge"
+            [class.badge-amber]="emprunt.statutDemande === 'EN_ATTENTE'"
+            [class.badge-green]="emprunt.statutDemande === 'VALIDEE'"
+            [class.badge-red]="emprunt.statutDemande === 'REFUSEE'"
+            [class.badge-blue]="emprunt.statutDemande === 'RETOURNE'"
+            [class.badge-slate]="emprunt.statutDemande === 'ANNULEE'">
+            {{ emprunt.statutDemande }}
+          </span>
+        </td>
         <td>
           @if (emprunt.statutDemande === 'VALIDEE') {
             <input #dateRetour type="date" [value]="dateDuJour" class="form-input">

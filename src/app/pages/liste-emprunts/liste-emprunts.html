@@ -8,6 +8,7 @@
       <th scope="col">Date début</th>
       <th scope="col">Date retour prévue</th>
       <th scope="col">Statut</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -15,9 +16,37 @@
       <tr>
         <td>{{ emprunt.materiel?.nomMateriel }}</td>
         <td>{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
-        <td>{{ emprunt.dateDebut }}</td>
-        <td>{{ emprunt.dateRetourPrevue }}</td>
-        <td>{{ emprunt.statutDemande }}</td>
+        <td>{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
+        <td>{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <span class="badge"
+            [class.badge-amber]="emprunt.statutDemande === 'EN_ATTENTE'"
+            [class.badge-green]="emprunt.statutDemande === 'VALIDEE'"
+            [class.badge-red]="emprunt.statutDemande === 'REFUSEE'"
+            [class.badge-blue]="emprunt.statutDemande === 'RETOURNE'"
+            [class.badge-slate]="emprunt.statutDemande === 'ANNULEE'">
+            {{ emprunt.statutDemande }}
+          </span>
+        </td>
+        <td>
+          @if (emprunt.statutDemande === 'VALIDEE') {
+            <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
+            <select #nouvelEtat class="form-select">
+              @for (etat of etats(); track etat.id) {
+                <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+              }
+            </select>
+            <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+            @if (message(); as msg) {
+              @if (msg.id === emprunt.id) {
+                <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'"
+                      style="display:block;font-size:11px;margin-top:4px">
+                  {{ msg.texte }}
+                </span>
+              }
+            }
+          }
+        </td>
       </tr>
     }
   </tbody>

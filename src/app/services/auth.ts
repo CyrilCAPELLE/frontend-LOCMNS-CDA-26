@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-type JwtInfo = { sub: string; roles: string };
+type JwtInfo = { id: number; sub: string; roles: string };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -34,5 +34,13 @@ export class AuthService {
       const body = JSON.parse(atob(jwt.split('.')[1]));
       this.jwtInfo.set(body);
     }
+  }
+
+  isAdmin() {
+    return this.jwtInfo()?.roles.includes('ADMIN') ?? false;
+  }
+
+  getId() {
+    return this.jwtInfo()?.id ?? null;
   }
 }

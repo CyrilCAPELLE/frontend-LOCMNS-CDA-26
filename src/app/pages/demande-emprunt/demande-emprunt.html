@@ -16,9 +16,9 @@
       <div class="form-hint">Filtré selon votre profil (relation Accéder)</div>
       <select class="form-select" formControlName="famille">
         <option value="">-- Sélectionnez --</option>
-        <option value="1">PC portable</option>
-        <option value="2">Écran</option>
-        <option value="3">Vidéoprojecteur</option>
+        @for (famille of familles(); track famille.id) {
+          <option [value]="famille.id">{{ famille.libelleFamilleMateriel }}</option>
+        }
       </select>
       @if (formulaire.controls.famille.invalid && formulaire.controls.famille.touched) {
         <small style="color: var(--red); font-size: 11px">La famille est obligatoire</small>
@@ -29,8 +29,9 @@
       <label class="form-label">Matériel souhaité</label>
       <select class="form-select" formControlName="materiel">
         <option value="">-- Sélectionnez --</option>
-        <option value="10">Dell Latitude 5540</option>
-        <option value="11">MacBook Air M2</option>
+        @for (materiel of materielFiltres(); track materiel.id) {
+          <option [value]="materiel.id">{{ materiel.nomMateriel }}</option>
+        }
       </select>
       @if (formulaire.controls.materiel.invalid && formulaire.controls.materiel.touched) {
         <small style="color: var(--red); font-size: 11px">Le materiel est obligatoire</small>
@@ -64,6 +65,10 @@
       <label class="form-label">Motif / commentaire</label>
       <textarea class="form-textarea" placeholder="Précisez l'usage prévu..." formControlName="motif"></textarea>
     </div>
+    @if (message(); as msg) {
+      <div [class]="msg.type === 'succes' ? 'alert-succes' : 'alert-erreur'">
+        {{ msg.texte }}
+      </div>}
     <button type="submit" class="btn btn-primary" style="width:100%" [disabled]="formulaire.invalid">
   Soumettre la demande
     </button>

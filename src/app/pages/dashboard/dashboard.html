@@ -1,1 +1,40 @@
-<h1>Tableau de bord</h1>
+@if (authService.isAdmin()) {
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total matériel</div>
+            <div class="stat-value">{{ totalMateriel() }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Emprunts actifs</div>
+            <div class="stat-value blue">{{ empruntActif() }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">En maintenance</div>
+            <div class="stat-value amber">{{ enMaintenance() }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Disponible</div>
+            <div class="stat-value green">{{ disponible() }}</div>
+        </div>
+    </div>
+
+    <h1>Demandes en attente</h1>
+
+    @for (emprunt of emprunts(); track emprunt.id) {
+        @if (emprunt.statutDemande === 'EN_ATTENTE') {
+            <div class="loan-card">
+            <div>
+                {{ emprunt.materiel?.nomMateriel }} —
+                {{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}
+            </div>
+            <div>
+                <button (click)="accepter(emprunt.id)" class="btn btn-primary btn-sm">Valider</button>
+                <button (click)="refuser(emprunt.id)" class="btn btn-ghost btn-sm">Refuser</button>
+            </div>
+            </div>
+        } 
+    }
+} @else {
+    <h1>Bienvenue sur LOC MNS</h1>
+    <p>Rendez-vous dans « Emprunts » pour faire une demande de matériel.</p>
+}

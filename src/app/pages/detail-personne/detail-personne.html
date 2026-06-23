@@ -1,12 +1,18 @@
 <h1>Détail personne</h1>
 
 @if (personne()) {
-    <h2>{{ personne()!.prenom }} {{ personne()!.nom }}</h2>
-    @for (profile of personne()!.profiles; track profile.id) {
-        <p>{{ profile.libelleProfile }}</p>
-    }
-    <p>{{ personne()!.email }}</p>
-    <p>{{ personne()!.actif }}</p>
+  <div class="card" style="max-width:560px;">
+    <h2 style="margin-bottom:12px;">{{ personne()!.prenom }} {{ personne()!.nom }}</h2>
+    <div style="margin-bottom:14px;">
+      @for (profile of personne()!.profiles; track profile.id) {
+        <span class="badge badge-blue" style="margin-right:6px;">{{ profile.libelleProfile }}</span>
+      }
+    </div>
+    <p style="margin-bottom:10px;"><span style="color:var(--slate-500);">Email :</span> {{ personne()!.email }}</p>
+    <span class="badge" [class.badge-green]="personne()!.actif" [class.badge-slate]="!personne()!.actif">
+      {{ personne()!.actif ? 'Actif' : 'Inactif' }}
+    </span>
+  </div>
 } @else {
-    <p>Chargement...</p>
+  <div class="empty-state">Chargement...</div>
 }

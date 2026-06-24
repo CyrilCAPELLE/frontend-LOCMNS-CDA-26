@@ -30,13 +30,23 @@
         </td>
         <td>
           @if (emprunt.statutDemande === 'VALIDEE') {
-            <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
-            <select #nouvelEtat class="form-select">
-              @for (etat of etats(); track etat.id) {
-                <option [value]="etat.id">{{ etat.libelleEtat }}</option>
-              }
-            </select>
-            <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+            @if (authService.isAdmin()) {
+              <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
+              <select #nouvelEtat class="form-select">
+                @for (etat of etats(); track etat.id) {
+                  <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+                }
+              </select>
+              <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+            } @else {
+              <select #typeEvt class="form-select">
+                @for (type of typesEvenement; track type) {
+                  <option [value]="type">{{ type }}</option>
+                }
+              </select>
+              <input #libelleEvt type="text" placeholder="Description" class="form-input">
+              <button (click)="signaler(emprunt.id, typeEvt.value, libelleEvt.value)" class="btn btn-secondary btn-sm">Signaler un événement</button>
+            }
             @if (message(); as msg) {
               @if (msg.id === emprunt.id) {
                 <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'"

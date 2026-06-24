@@ -13,7 +13,12 @@
         }        
         <li><a [routerLink]="['/documents']" routerLinkActive="active">Documents</a></li>
         @if (authService.isAdmin()) {
-            <li><a [routerLink]="['/alertes']" routerLinkActive="active">Alertes</a></li>
-        }        
+            <li><a [routerLink]="['/alertes']" routerLinkActive="active">
+              Alertes
+              @if (evenementService.nombreAlertes() > 0) {
+                <span class="badge badge-red" style="margin-left:6px">{{ evenementService.nombreAlertes() }}</span>
+              }
+            </a></li>
+        }
     </ul>
 </aside>

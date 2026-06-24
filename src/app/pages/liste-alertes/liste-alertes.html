@@ -1,2 +1,75 @@
 <h1>Alertes</h1>
-<div class="empty-state">Module d'alertes (retards, pannes) — à venir (perspective d'évolution).</div>
+
+@if (evenements().length === 0) {
+  <div class="empty-state">Aucun événement signalé pour le moment.</div>
+} @else {
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Matériel</th>
+        <th scope="col">Demandeur</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (evenement of evenements(); track evenement.id) {
+        <tr>
+          <td>
+            <span class="badge"
+              [class.badge-red]="evenement.typeEvenement === 'PANNE'"
+              [class.badge-amber]="evenement.typeEvenement === 'DYSFONCTIONNEMENT'"
+              [class.badge-blue]="evenement.typeEvenement === 'RETOUR_ANTICIPE'"
+              [class.badge-green]="evenement.typeEvenement === 'PROLONGATION'">
+              {{ evenement.typeEvenement }}
+            </span>
+          </td>
+          <td>{{ evenement.emprunt?.materiel?.nomMateriel }}</td>
+          <td>{{ evenement.emprunt?.personne?.prenom }} {{ evenement.emprunt?.personne?.nom }}</td>
+          <td>{{ evenement.libelleEvenement }}</td>
+          <td>{{ evenement.dateEvenement | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            @if (evenement.traite) {
+              <span class="badge badge-slate">Traité</span>
+            } @else {
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                @if (evenement.typeEvenement === 'PANNE' || evenement.typeEvenement === 'DYSFONCTIONNEMENT') {
+                  <select #etatM class="form-select" style="width:auto;min-width:130px">
+                    @for (etat of etats(); track etat.id) {
+                      <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+                    }
+                  </select>
+                  <button (click)="mettreEnMaintenance(evenement.id, etatM.value)" class="btn btn-primary btn-sm">Mettre à jour l'état</button>
+                }
+                @if (evenement.typeEvenement === 'PROLONGATION') {
+                  <input #dateP type="date" [value]="dateDuJour" class="form-input" style="width:auto">
+                  <button (click)="prolonger(evenement.id, dateP.value)" class="btn btn-primary btn-sm">Prolonger</button>
+                }
+                @if (evenement.typeEvenement === 'RETOUR_ANTICIPE') {
+                  <input #dateR type="date" [value]="dateDuJour" class="form-input" style="width:auto">
+                  <select #etatR class="form-select" style="width:auto;min-width:130px">
+                    @for (etat of etats(); track etat.id) {
+                      <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+                    }
+                  </select>
+                  <button (click)="retourAnticipe(evenement.id, dateR.value, etatR.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+                }
+                <button (click)="marquerTraite(evenement.id)" class="btn btn-secondary btn-sm">Marquer traité</button>
+              </div>
+            }
+            @if (message(); as msg) {
+              @if (msg.id === evenement.id) {
+                <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'"
+                      style="display:block;font-size:11px;margin-top:4px">
+                  {{ msg.texte }}
+                </span>
+              }
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

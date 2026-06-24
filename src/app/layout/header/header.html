@@ -2,7 +2,14 @@
   <input type="text" class="search-input" placeholder="Rechercher...">
   <div class="header-actions">
     <a [routerLink]="['/emprunts/demande']" class="btn btn-primary btn-sm">+ Nouvel emprunt</a>
-    <button class="icon-btn">🔔</button>
+    <a [routerLink]="['/alertes']" class="icon-btn" style="position:relative;text-decoration:none">
+      🔔
+      @if (evenementService.nombreAlertes() > 0) {
+        <span style="position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;border-radius:999px;font-size:10px;font-weight:700;min-width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px">
+          {{ evenementService.nombreAlertes() }}
+        </span>
+      }
+    </a>
     <button class="btn btn-primary btn-sm" (click)="deconnexion()">Déconnexion</button>
   </div>
 </header>

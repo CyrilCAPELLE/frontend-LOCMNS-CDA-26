@@ -3,6 +3,7 @@ import { EmpruntService } from '../../services/emprunt';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../services/auth';
 import { EtatService } from '../../services/etat';
+import { EvenementService } from '../../services/evenement';
 
 @Component({
   selector: 'app-liste-emprunts',
@@ -15,7 +16,9 @@ export class ListeEmprunts {
   empruntService = inject(EmpruntService);
   authService = inject(AuthService);
   etatService = inject(EtatService);
+  evenementService = inject(EvenementService);
   etats = signal<Etat[]>([]);
+  typesEvenement = ['PANNE', 'DYSFONCTIONNEMENT', 'RETOUR_ANTICIPE', 'PROLONGATION'];
 
   dateDuJour = new Date().toISOString().slice(0, 10);
   message = signal<{ id: number; texte: string; type: 'succes' | 'erreur' } | null>(null);
@@ -48,4 +51,12 @@ export class ListeEmprunts {
     error: (error) => this.message.set({ id, texte: error.error.erreur, type: 'erreur' }),
   });
 }
+
+  signaler(id: number, typeEvenement: string, libelleEvenement: string) {
+    this.message.set(null);
+    this.evenementService.signaler(id, typeEvenement, libelleEvenement).subscribe({
+      next: () => this.message.set({ id, texte: 'Événement signalé', type: 'succes' }),
+      error: (error) => this.message.set({ id, texte: error.error.erreur, type: 'erreur' }),
+    });
+  }
 }

@@ -7,6 +7,20 @@
     <p style="margin-bottom:8px;"><span style="color:var(--slate-500);">Famille :</span> {{ materiel()!.familleMateriel?.libelleFamilleMateriel }}</p>
     <p style="margin-bottom:8px;"><span style="color:var(--slate-500);">État :</span> {{ materiel()!.etat?.libelleEtat }}</p>
     <p><span style="color:var(--slate-500);">Emplacement :</span> {{ materiel()!.emplacement?.libelleEmplacement }}</p>
+
+    @if (authService.isAdmin()) {
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <select #nouvelEtat class="form-select" style="width:auto;min-width:150px">
+          @for (etat of etats(); track etat.id) {
+            <option [value]="etat.id" [selected]="etat.id === materiel()!.etat?.id">{{ etat.libelleEtat }}</option>
+          }
+        </select>
+        <button (click)="changerEtat(nouvelEtat.value)" class="btn btn-primary btn-sm">Mettre à jour l'état</button>
+        @if (message(); as msg) {
+          <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'" style="font-size:12px">{{ msg.texte }}</span>
+        }
+      </div>
+    }
   </div>
 } @else {
   <div class="empty-state">Chargement...</div>

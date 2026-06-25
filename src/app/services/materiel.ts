@@ -25,6 +25,10 @@ export class MaterielService {
     return this.httpClient.put<void>(this.apiUrl + '/' + id, materiel)
   }
 
+  changerEtat(id: number, nouvelEtatId: number): Observable<Materiel> {
+    return this.httpClient.put<Materiel>(this.apiUrl + '/' + id + '/etat', {}, { params: { nouvelEtatId } })
+  }
+
   delete(id: number): Observable<void> {
     return this.httpClient.delete<void>(this.apiUrl + '/' + id)
   }

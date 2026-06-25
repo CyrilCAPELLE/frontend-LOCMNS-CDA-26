@@ -49,6 +49,6 @@ export class Dashboard {
 
   totalMateriel = computed(() => this.materiels().length);
   empruntActif = computed(() => this.emprunts().filter((emprunt) => emprunt.statutDemande === 'VALIDEE').length);
-  enMaintenance = computed(() => this.materiels().filter((materiel) => materiel.etat?.libelleEtat === 'En réparation').length);
-  disponible = computed(() => this.materiels().filter((materiels) => materiels.etat?.libelleEtat === 'Neuf' || materiels.etat?.libelleEtat === 'Bon état').length);
+  enMaintenance = computed(() => this.materiels().filter((materiel) => materiel.etat?.empruntable === false).length);
+  disponible = computed(() => this.materiels().filter((materiel) => materiel.etat?.empruntable === true).length);
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { EvenementService } from '../../services/evenement';
 import { EtatService } from '../../services/etat';
@@ -15,6 +15,7 @@ export class ListeAlertes {
   etatService = inject(EtatService);
 
   evenements = this.evenementService.evenements;
+  alertes = computed(() => this.evenements().filter((evenement) => !evenement.traite));
 
   dateDuJour = new Date().toISOString().slice(0, 10);
   message = signal<{ id: number; texte: string; type: 'succes' | 'erreur' } | null>(null);

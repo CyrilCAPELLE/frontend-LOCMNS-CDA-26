@@ -16,6 +16,7 @@ import { ListeDocuments } from './pages/liste-documents/liste-documents';
 import { ListeAlertes } from './pages/liste-alertes/liste-alertes';
 import { DemandeEmprunt } from './pages/demande-emprunt/demande-emprunt';
 import { connecteGuard } from './guard/connecte-guard';
+import { adminGuard } from './guard/admin-guard';
 
 export const routes: Routes = [
     {path: 'connexion', component: Connexion },
@@ -25,16 +26,16 @@ export const routes: Routes = [
             {path: 'composant/creer', component: ModifierComposant },
             {path: 'composant/:id', component: DetailComposant },
             {path: 'materiel/:id', component: DetailMateriel },
-            {path: 'personne/liste', component: ListePersonnes },
-            {path: 'personne/:id', component: DetailPersonne },
+            {path: 'personne/liste', component: ListePersonnes, canActivate: [adminGuard] },
+            {path: 'personne/:id', component: DetailPersonne, canActivate: [adminGuard] },
             {path: 'composant/maj/:id', component: ModifierComposant },
             {path: 'dashboard', component: Dashboard},
             {path: 'materiels', component: ListeMateriels},
             {path: 'emprunts', component: ListeEmprunts},
             {path: 'planning', component: Planning},
-            {path: 'utilisateurs', component: ListeUtilisateurs},
+            {path: 'utilisateurs', component: ListeUtilisateurs, canActivate: [adminGuard] },
             {path: 'documents', component: ListeDocuments},
-            {path: 'alertes', component: ListeAlertes},
+            {path: 'alertes', component: ListeAlertes, canActivate: [adminGuard] },
             {path: 'emprunts/demande', component: DemandeEmprunt},
         ]
     },

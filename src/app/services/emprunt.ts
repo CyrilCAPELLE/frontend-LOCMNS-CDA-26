@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EmpruntService {
   httpClient = inject(HttpClient)
-  apiUrl = 'http://localhost:8080/emprunt';
+  apiUrl = '/api/emprunt';
 
   getAll(): Observable<Emprunt[]> {
     return this.httpClient.get<Emprunt[]>(this.apiUrl + '/liste');

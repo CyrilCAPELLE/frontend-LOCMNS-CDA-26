@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FamilleMaterielService {
   httpClient = inject(HttpClient);
-  apiUrl = 'http://localhost:8080/famille-materiel';
+  apiUrl = '/api/famille-materiel';
 
   getAccessibles(): Observable<FamilleMateriel[]> {
     return this.httpClient.get<FamilleMateriel[]>(this.apiUrl + '/accessibles');

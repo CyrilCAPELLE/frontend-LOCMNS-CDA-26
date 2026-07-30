@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ComposantService {
   httpClient = inject(HttpClient)
-  apiUrl = 'http://localhost:8080/composant';
+  apiUrl = '/api/composant';
 
   getAll(): Observable<Composant[]> {
     return this.httpClient.get<Composant[]>(this.apiUrl + '/liste');

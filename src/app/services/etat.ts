@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EtatService {
   httpClient = inject(HttpClient);
-  apiUrl = 'http://localhost:8080/etat';
+  apiUrl = '/api/etat';
 
   getAll(): Observable<Etat[]> {
     return this.httpClient.get<Etat[]>(this.apiUrl + '/liste');

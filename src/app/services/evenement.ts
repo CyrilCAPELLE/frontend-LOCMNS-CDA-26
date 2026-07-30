@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EvenementService {
   httpClient = inject(HttpClient);
-  apiUrl = 'http://localhost:8080/evenement';
+  apiUrl = '/api/evenement';
 
   evenements = signal<Evenement[]>([]);
   nombreAlertes = computed(() => this.evenements().filter((evenement) => !evenement.traite).length);

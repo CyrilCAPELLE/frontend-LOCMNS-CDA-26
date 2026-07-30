@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PersonneService {
   httpClient = inject(HttpClient)
-  apiUrl = 'http://localhost:8080/personne';
+  apiUrl = '/api/personne';
 
   getAll(): Observable<Personne[]> {
     return this.httpClient.get<Personne[]>(this.apiUrl + '/liste');

@@ -1,7 +1,15 @@
 <h1>Liste des personnes</h1>
 
 @for (personne of personnes(); track personne.id) {
-    <h2><a [routerLink]="'/personne/' + personne.id">{{ personne.prenom }} {{ personne.nom }}</a></h2>
-    <p>{{ personne.email }}</p>
-    <p>{{ personne.actif }}</p>
+  <div class="card" style="margin-bottom:10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center;">
+    <div>
+      <a [routerLink]="'/personne/' + personne.id" style="font-size:14px; font-weight:600;">{{ personne.prenom }} {{ personne.nom }}</a>
+      <div style="color:var(--slate-500); font-size:12px; margin-top:2px;">{{ personne.email }}</div>
+    </div>
+    <span class="badge" [class.badge-green]="personne.actif" [class.badge-slate]="!personne.actif">
+      {{ personne.actif ? 'Actif' : 'Inactif' }}
+    </span>
+  </div>
+} @empty {
+  <div class="empty-state">Aucune personne pour le moment</div>
 }

@@ -1,5 +1,7 @@
-<div class="layout-container">
-    <app-sidebar></app-sidebar>
+<div class="layout-container" [class.menu-ouvert]="menuOuvert()">
+    <button class="burger" type="button" aria-label="Menu" (click)="basculerMenu()">☰</button>
+    <app-sidebar (click)="fermerMenu()"></app-sidebar>
+    <div class="voile" (click)="fermerMenu()"></div>
     <main class="main-content">
         <app-header></app-header>
         <router-outlet></router-outlet>

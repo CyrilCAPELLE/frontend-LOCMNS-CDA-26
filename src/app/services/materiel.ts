@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MaterielService {
   httpClient = inject(HttpClient)
-  apiUrl = 'http://localhost:8080/materiel';
+  apiUrl = '/api/materiel';
 
   getAll(): Observable<Materiel[]> {
     return this.httpClient.get<Materiel[]>(this.apiUrl + '/liste');
@@ -23,6 +23,10 @@ export class MaterielService {
 
   update(id: number, materiel: Materiel): Observable<void> {
     return this.httpClient.put<void>(this.apiUrl + '/' + id, materiel)
+  }
+
+  changerEtat(id: number, nouvelEtatId: number): Observable<Materiel> {
+    return this.httpClient.put<Materiel>(this.apiUrl + '/' + id + '/etat', {}, { params: { nouvelEtatId } })
   }
 
   delete(id: number): Observable<void> {

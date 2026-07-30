@@ -1,1 +1,65 @@
 <h1>Gestion des emprunts</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Matériel</th>
+      <th scope="col">Demandeur</th>
+      <th scope="col">Date début</th>
+      <th scope="col">Date retour prévue</th>
+      <th scope="col">Statut</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (emprunt of emprunts(); track emprunt.id) {
+      <tr>
+        <td data-label="Matériel">{{ emprunt.materiel?.nomMateriel }}</td>
+        <td data-label="Demandeur">{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
+        <td data-label="Date début">{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
+        <td data-label="Date retour prévue">{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
+        <td data-label="Statut">
+          <span class="badge"
+            [class.badge-amber]="emprunt.statutDemande === 'EN_ATTENTE'"
+            [class.badge-green]="emprunt.statutDemande === 'VALIDEE'"
+            [class.badge-red]="emprunt.statutDemande === 'REFUSEE'"
+            [class.badge-blue]="emprunt.statutDemande === 'RETOURNE'"
+            [class.badge-slate]="emprunt.statutDemande === 'ANNULEE'">
+            {{ emprunt.statutDemande }}
+          </span>
+        </td>
+        <td data-label="Action">
+          @if (emprunt.statutDemande === 'VALIDEE') {
+            @if (authService.isAdmin()) {
+              <label class="field-label">Date de retour réelle</label>
+              <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
+              <label class="field-label">État du matériel au retour</label>
+              <select #nouvelEtat class="form-select">
+                @for (etat of etats(); track etat.id) {
+                  <option [value]="etat.id">{{ etat.libelleEtat }}</option>
+                }
+              </select>
+              <button (click)="retour(emprunt.id, dateRetour.value, nouvelEtat.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+            } @else {
+              <select #typeEvt class="form-select">
+                @for (type of typesEvenement; track type) {
+                  <option [value]="type">{{ type }}</option>
+                }
+              </select>
+              <input #libelleEvt type="text" placeholder="Description" class="form-input">
+              <button (click)="signaler(emprunt.id, typeEvt.value, libelleEvt.value)" class="btn btn-secondary btn-sm">Signaler un événement</button>
+            }
+            @if (message(); as msg) {
+              @if (msg.id === emprunt.id) {
+                <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'"
+                      style="display:block;font-size:11px;margin-top:4px">
+                  {{ msg.texte }}
+                </span>
+              }
+            }
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

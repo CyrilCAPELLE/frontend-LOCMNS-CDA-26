@@ -12,10 +12,15 @@
   <tbody>
     @for (materiel of materiels(); track materiel.id) {
         <tr>
-            <td><a [routerLink]="'/materiel/' + materiel.id">{{ materiel.nomMateriel }}</a></td>
-            <td>{{ materiel.numeroDeSerie }}</td>
-            <td>{{ materiel.familleMateriel?.libelleFamilleMateriel }}</td>
-            <td>{{ materiel.etat?.libelleEtat }}</td>
+            <td data-label="Nom du matériel"><a [routerLink]="'/materiel/' 
+            + materiel.id">{{ materiel.nomMateriel }}</a></td>
+            <td data-label="Numéro de série">{{ materiel.numeroDeSerie }}</td>
+            <td data-label="Famille">{{ materiel.familleMateriel?.libelleFamilleMateriel }}</td>
+            <td data-label="État"
+                [class.etat-maintenance]="materiel.etat?.libelleEtat === 'En maintenance'"
+                [class.etat-hors-service]="materiel.etat?.libelleEtat === 'Hors service'">
+              {{ materiel.etat?.libelleEtat }}
+            </td>
         </tr>
     }
   </tbody>

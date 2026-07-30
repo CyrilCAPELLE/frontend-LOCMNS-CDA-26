@@ -6,6 +6,27 @@
 .sidebar-logo-text { font-size: 15px; font-weight: 700; color: #FFFFFF; }
 .sidebar-nav { list-style: none; }
 .sidebar-nav li { margin-bottom: 3px; }
-.sidebar-nav a { display: block; padding: 9px 12px; border-radius: var(--radius-sm); font-size: 12px; color: rgba(255, 255, 255, 0.65); transition: all 0.15s; }
+.sidebar-nav a { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: var(--radius-sm); font-size: 12px; color: rgba(255, 255, 255, 0.65); transition: all 0.15s; }
 .sidebar-nav a:hover { background: rgba(255, 255, 255, 0.1); color: #FFFFFF; text-decoration: none; }
 .sidebar-nav a.active { background: var(--blue-primary); color: #FFFFFF; font-weight: 600; }
+.sidebar-nav a .badge { margin-left: 8px; padding: 2px 9px; background: var(--red); color: #FFFFFF; vertical-align: middle; }
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.sidebar-user {
+  margin-top: auto;
+}
+.sidebar-user {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 20px;
+}

@@ -3,21 +3,22 @@
 @if (materiel()) {
   <div class="card" style="max-width:560px;">
     <h2 style="margin-bottom:16px;">{{ materiel()!.nomMateriel }}</h2>
-    <p style="margin-bottom:8px;"><span style="color:var(--slate-500);">Numéro de série :</span> {{ materiel()!.numeroDeSerie }}</p>
-    <p style="margin-bottom:8px;"><span style="color:var(--slate-500);">Famille :</span> {{ materiel()!.familleMateriel?.libelleFamilleMateriel }}</p>
-    <p style="margin-bottom:8px;"><span style="color:var(--slate-500);">État :</span> {{ materiel()!.etat?.libelleEtat }}</p>
-    <p><span style="color:var(--slate-500);">Emplacement :</span> {{ materiel()!.emplacement?.libelleEmplacement }}</p>
+    <p style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.12);"><span style="color:var(--slate-500);display:inline-block;width:150px">Numéro de série :</span> {{ materiel()!.numeroDeSerie }}</p>
+    <p style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.12);"><span style="color:var(--slate-500);display:inline-block;width:150px">Famille :</span> {{ materiel()!.familleMateriel?.libelleFamilleMateriel }}</p>
+    <p style="margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.12);"><span style="color:var(--slate-500);display:inline-block;width:150px">État :</span> {{ materiel()!.etat?.libelleEtat }}</p>
+    <p><span style="color:var(--slate-500);display:inline-block;width:150px">Emplacement :</span> {{ materiel()!.emplacement?.libelleEmplacement }}</p>
 
     @if (authService.isAdmin()) {
-      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-        <select #nouvelEtat class="form-select" style="width:auto;min-width:150px">
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+        <label class="field-label" style="text-align:left;margin-top:0">Nouvel état</label>
+        <select #nouvelEtat class="form-select">
           @for (etat of etats(); track etat.id) {
             <option [value]="etat.id" [selected]="etat.id === materiel()!.etat?.id">{{ etat.libelleEtat }}</option>
           }
         </select>
-        <button (click)="changerEtat(nouvelEtat.value)" class="btn btn-primary btn-sm">Mettre à jour l'état</button>
+        <button (click)="changerEtat(nouvelEtat.value)" class="btn btn-primary" style="width:100%;margin-top:8px">Mettre à jour l'état</button>
         @if (message(); as msg) {
-          <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'" style="font-size:12px">{{ msg.texte }}</span>
+          <span [style.color]="msg.type === 'succes' ? 'var(--green)' : 'var(--red)'" style="display:block;font-size:12px;margin-top:8px">{{ msg.texte }}</span>
         }
       </div>
     }

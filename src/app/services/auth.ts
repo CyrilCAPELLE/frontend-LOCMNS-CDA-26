@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-type JwtInfo = { id: number; sub: string; roles: string };
+type JwtInfo = { id: number; sub: string; roles: string; prenom: string; nom: string };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -44,3 +44,4 @@ export class AuthService {
     return this.jwtInfo()?.id ?? null;
   }
 }
+

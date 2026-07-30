@@ -14,11 +14,11 @@
   <tbody>
     @for (emprunt of emprunts(); track emprunt.id) {
       <tr>
-        <td>{{ emprunt.materiel?.nomMateriel }}</td>
-        <td>{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
-        <td>{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
-        <td>{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
-        <td>
+        <td data-label="Matériel">{{ emprunt.materiel?.nomMateriel }}</td>
+        <td data-label="Demandeur">{{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}</td>
+        <td data-label="Date début">{{ emprunt.dateDebut | date:'dd/MM/yyyy' }}</td>
+        <td data-label="Date retour prévue">{{ emprunt.dateRetourPrevue | date:'dd/MM/yyyy' }}</td>
+        <td data-label="Statut">
           <span class="badge"
             [class.badge-amber]="emprunt.statutDemande === 'EN_ATTENTE'"
             [class.badge-green]="emprunt.statutDemande === 'VALIDEE'"
@@ -28,10 +28,12 @@
             {{ emprunt.statutDemande }}
           </span>
         </td>
-        <td>
+        <td data-label="Action">
           @if (emprunt.statutDemande === 'VALIDEE') {
             @if (authService.isAdmin()) {
+              <label class="field-label">Date de retour réelle</label>
               <input #dateRetour type="date" [value]="dateDuJour" class="form-input">
+              <label class="field-label">État du matériel au retour</label>
               <select #nouvelEtat class="form-select">
                 @for (etat of etats(); track etat.id) {
                   <option [value]="etat.id">{{ etat.libelleEtat }}</option>

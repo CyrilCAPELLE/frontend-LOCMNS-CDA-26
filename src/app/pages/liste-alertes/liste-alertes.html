@@ -17,7 +17,7 @@
     <tbody>
       @for (evenement of alertes(); track evenement.id) {
         <tr>
-          <td>
+          <td data-label="Type">
             <span class="badge"
               [class.badge-red]="evenement.typeEvenement === 'PANNE'"
               [class.badge-amber]="evenement.typeEvenement === 'DYSFONCTIONNEMENT'"
@@ -26,34 +26,38 @@
               {{ evenement.typeEvenement }}
             </span>
           </td>
-          <td>{{ evenement.emprunt?.materiel?.nomMateriel }}</td>
-          <td>{{ evenement.emprunt?.personne?.prenom }} {{ evenement.emprunt?.personne?.nom }}</td>
-          <td>{{ evenement.libelleEvenement }}</td>
-          <td>{{ evenement.dateEvenement | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <td data-label="Matériel">{{ evenement.emprunt?.materiel?.nomMateriel }}</td>
+          <td data-label="Demandeur">{{ evenement.emprunt?.personne?.prenom }} {{ evenement.emprunt?.personne?.nom }}</td>
+          <td data-label="Description">{{ evenement.libelleEvenement }}</td>
+          <td data-label="Date">{{ evenement.dateEvenement | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td data-label="Action">
+            <div style="display:flex;flex-direction:column;gap:4px">
                 @if (evenement.typeEvenement === 'PANNE' || evenement.typeEvenement === 'DYSFONCTIONNEMENT') {
-                  <select #etatM class="form-select" style="width:auto;min-width:130px">
+                  <label class="field-label">Nouvel état</label>
+                  <select #etatM class="form-select">
                     @for (etat of etats(); track etat.id) {
                       <option [value]="etat.id">{{ etat.libelleEtat }}</option>
                     }
                   </select>
-                  <button (click)="mettreEnMaintenance(evenement.id, etatM.value)" class="btn btn-primary btn-sm">Mettre à jour l'état</button>
+                  <button (click)="mettreEnMaintenance(evenement.id, etatM.value)" class="btn btn-primary btn-sm" style="width:100%">Mettre à jour l'état</button>
                 }
                 @if (evenement.typeEvenement === 'PROLONGATION') {
-                  <input #dateP type="date" [value]="dateDuJour" class="form-input" style="width:auto">
-                  <button (click)="prolonger(evenement.id, dateP.value)" class="btn btn-primary btn-sm">Prolonger</button>
+                  <label class="field-label">Nouvelle date de retour</label>
+                  <input #dateP type="date" [value]="dateDuJour" class="form-input">
+                  <button (click)="prolonger(evenement.id, dateP.value)" class="btn btn-primary btn-sm" style="width:100%">Prolonger</button>
                 }
                 @if (evenement.typeEvenement === 'RETOUR_ANTICIPE') {
-                  <input #dateR type="date" [value]="dateDuJour" class="form-input" style="width:auto">
-                  <select #etatR class="form-select" style="width:auto;min-width:130px">
+                  <label class="field-label">Date de retour réelle</label>
+                  <input #dateR type="date" [value]="dateDuJour" class="form-input">
+                  <label class="field-label">État du matériel au retour</label>
+                  <select #etatR class="form-select">
                     @for (etat of etats(); track etat.id) {
                       <option [value]="etat.id">{{ etat.libelleEtat }}</option>
                     }
                   </select>
-                  <button (click)="retourAnticipe(evenement.id, dateR.value, etatR.value)" class="btn btn-primary btn-sm">Enregistrer le retour</button>
+                  <button (click)="retourAnticipe(evenement.id, dateR.value, etatR.value)" class="btn btn-primary btn-sm" style="width:100%">Enregistrer le retour</button>
                 }
-                <button (click)="marquerTraite(evenement.id)" class="btn btn-secondary btn-sm">Marquer traité</button>
+                <button (click)="marquerTraite(evenement.id)" class="btn btn-secondary btn-sm" style="width:100%">Marquer traité</button>
               </div>
             @if (message(); as msg) {
               @if (msg.id === evenement.id) {

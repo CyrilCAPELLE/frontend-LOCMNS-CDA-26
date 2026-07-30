@@ -1,20 +1,21 @@
 @if (authService.isAdmin()) {
+    <h1>Tableau de bord</h1>
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-label">Total matériel</div>
             <div class="stat-value">{{ totalMateriel() }}</div>
+            <div class="stat-label">Total matériel</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Emprunts actifs</div>
             <div class="stat-value blue">{{ empruntActif() }}</div>
+            <div class="stat-label">Emprunts actifs</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">En maintenance</div>
             <div class="stat-value amber">{{ enMaintenance() }}</div>
+            <div class="stat-label">En maintenance</div>
         </div>
         <div class="stat-card">
-            <div class="stat-label">Disponible</div>
             <div class="stat-value green">{{ disponible() }}</div>
+            <div class="stat-label">Disponible</div>
         </div>
     </div>
 
@@ -27,7 +28,7 @@
                 {{ emprunt.materiel?.nomMateriel }} —
                 {{ emprunt.personne?.prenom }} {{ emprunt.personne?.nom }}
             </div>
-            <div>
+            <div class="loan-actions">
                 <button (click)="accepter(emprunt.id)" class="btn btn-primary btn-sm">Valider</button>
                 <button (click)="refuser(emprunt.id)" class="btn btn-ghost btn-sm">Refuser</button>
             </div>

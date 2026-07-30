@@ -1,7 +1,7 @@
 .login-page { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--dark-surface-2); }
     .login-card { width:100%; max-width:420px; background:var(--white); border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden; box-shadow:var(--shadow-lg); }
     .login-header { background:var(--blue-bg); padding:40px 20px 30px; text-align:center; border-bottom:1px solid var(--border); }
-    .login-logo { width:64px; height:64px; background:var(--blue-primary); border-radius:16px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-weight:800; font-size:20px; }
+    .login-logo { width:64px; height:64px; background:#FFFFFF; border-radius:16px; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; color:var(--blue-primary); font-weight:800; font-size:30px; }
     .login-title { font-size:22px; font-weight:700; color:var(--slate-900); }
     .login-subtitle { font-size:13px; color:var(--slate-500); margin-top:4px; }
     .login-body { padding:28px 28px 20px; }

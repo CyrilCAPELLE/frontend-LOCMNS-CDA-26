@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-type JwtInfo = { id: number; sub: string; roles: string; prenom: string; nom: string };
+type JwtInfo = { id: number; sub: string; roles: string; prenom: string; nom: string, exp: number };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -32,6 +32,12 @@ export class AuthService {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       const body = JSON.parse(atob(jwt.split('.')[1]));
+
+      if (body.exp * 1000 < Date.now()) {
+        this.logout();
+        return;
+      }
+
       this.jwtInfo.set(body);
     }
   }
